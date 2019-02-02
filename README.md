@@ -4,7 +4,7 @@ This is a static web page, which queries statistic data from different component
 
 Currently supported are:
 
-* CoCeSo Backend (monitoring token must be configured)
+* CoCeSo Backend
 * SMS Gateway
 * TETRA SDS Gateway
 

@@ -2,9 +2,176 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CoCeSo Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="favicon.ico">
 </head>
 <body>
+<main role="main" class="container">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">CoCeSo Dashboard</h1>
+            <p class="lead text-muted">
+                This page shows the health state of the CoCeSo system.
+            </p>
+        </div>
+    </section>
 
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">SMS Gateway</h5>
+                    <p class="card-text">SMS Gateway for sending alarm texts to units.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" data-bind="css: smsGateway.serverStateString.state">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Server State</span>
+                            <span class="badge badge-dark" data-bind="text: smsGateway.serverStateString"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Queue</span>
+                            <span class="badge"
+                                  data-bind="text: smsGateway.queuedString, css: smsGateway.queuedString.state"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Outbox</span>
+                            <span class="badge"
+                                  data-bind="text: smsGateway.outboxString, css: smsGateway.outboxString.state"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Sent</span>
+                            <span class="badge"
+                                  data-bind="text: smsGateway.sentString, css: smsGateway.sentString.state"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Error</span>
+                            <span class="badge"
+                                  data-bind="text: smsGateway.errorString, css: smsGateway.errorString.state"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Inbox</span>
+                            <span class="badge"
+                                  data-bind="text: smsGateway.inboxString, css: smsGateway.inboxString.state"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">TETRA Gateway</h5>
+                    <p class="card-text">TETRA Gateway for sending alarm texts to units per SDS text message.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" data-bind="css: tetraGateway.serverStateString.state">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Server State</span>
+                            <span class="badge badge-dark" data-bind="text: tetraGateway.serverStateString"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item" data-bind="css: tetraGateway.tetraRadioStateString.state">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>TETRA Radio State</span>
+                            <span class="badge badge-dark" data-bind="text: tetraGateway.tetraRadioStateString"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Queue</span>
+                            <span class="badge"
+                                  data-bind="text: tetraGateway.queuedString, css: tetraGateway.queuedString.state"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Sending</span>
+                            <span class="badge"
+                                  data-bind="text: tetraGateway.sendingString, css: tetraGateway.sendingString.state"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Waiting for ACK</span>
+                            <span class="badge"
+                                  data-bind="text: tetraGateway.waitingForAckString, css: tetraGateway.waitingForAckString.state"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Sent</span>
+                            <span class="badge"
+                                  data-bind="text: tetraGateway.sentString, css: tetraGateway.sentString.state"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Failed</span>
+                            <span class="badge"
+                                  data-bind="text: tetraGateway.failedString, css: tetraGateway.failedString.state"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Inbox</span>
+                            <span class="badge"
+                                  data-bind="text: tetraGateway.inboxString, css: tetraGateway.inboxString.state"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">CoCeSo Backend</h5>
+                    <p class="card-text">The backend server of CoCeSo (Tomcat Application).</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" data-bind="css: backendStatistics.serverStateString.state">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Server State</span>
+                            <span class="badge badge-dark" data-bind="text: backendStatistics.serverStateString"></span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Latency (ms)</span>
+                            <span class="badge"
+                                  data-bind="text: backendStatistics.latencyString, css: backendStatistics.latencyString.state"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/knockout-3.4.2.js"></script>
+
+<script src="conf/endpoint.js"></script>
+<script src="conf/dashboardConfiguration.js"></script>
+<script src="js/dashboard.js"></script>
 </body>
 </html>
