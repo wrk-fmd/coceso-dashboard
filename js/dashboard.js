@@ -93,6 +93,12 @@ ko.extenders.statisticNumberString = function (targetObservable, options) {
   return numberString;
 };
 
+function smsStartTimer(smsViewModel) {
+  setTimeout(function () {
+    updateSmsGateway(smsViewModel)
+  }, intervalConfiguration.smsGatewayInterval);
+}
+
 function updateSmsGateway(smsViewModel) {
   $.get({
     dataType: "json",
@@ -108,10 +114,19 @@ function updateSmsGateway(smsViewModel) {
       } else {
         smsViewModel.resetMessageCounts();
       }
+
+      smsStartTimer(smsViewModel);
     }
   }).fail(function () {
-    smsViewModel.serverState(serverState.failed)
+    smsViewModel.serverState(serverState.failed);
+    smsStartTimer(smsViewModel);
   });
+}
+
+function tetraStartTimer(tetraViewModel) {
+  setTimeout(function () {
+    updateTetraGateway(tetraViewModel)
+  }, intervalConfiguration.tetraGatewayInterval);
 }
 
 function updateTetraGateway(tetraViewModel) {
@@ -131,10 +146,20 @@ function updateTetraGateway(tetraViewModel) {
       } else {
         smsViewModel.resetMessageCounts();
       }
+
+      tetraStartTimer(tetraViewModel);
     }
   }).fail(function () {
-    tetraViewModel.serverState(serverState.failed)
+    tetraViewModel.serverState(serverState.failed);
+    tetraStartTimer(tetraViewModel);
   });
+
+}
+
+function backendStartTimer(backendViewModel) {
+  setTimeout(function () {
+    updateBackendStatistics(backendViewModel)
+  }, intervalConfiguration.backendInterval);
 }
 
 function updateBackendStatistics(backendViewModel) {
@@ -148,11 +173,15 @@ function updateBackendStatistics(backendViewModel) {
       let receiveTime = (new Date()).getTime();
       let latencyInMilliseconds = receiveTime - sendTime;
       backendViewModel.latency(latencyInMilliseconds);
+
+      backendStartTimer(backendViewModel);
     }
   }).fail(function () {
     backendViewModel.serverState(serverState.failed);
     backendViewModel.latency(null);
+    backendStartTimer(backendViewModel);
   });
+
 }
 
 let SmsViewModel = function () {
@@ -181,9 +210,7 @@ let SmsViewModel = function () {
     self.errorMessages(null);
   };
 
-  setInterval(function () {
-    updateSmsGateway(self)
-  }, intervalConfiguration.smsGatewayInterval);
+  updateSmsGateway(self)
 };
 
 let TetraViewModel = function () {
@@ -219,9 +246,7 @@ let TetraViewModel = function () {
     self.inboxMessages(null);
   };
 
-  setInterval(function () {
-    updateTetraGateway(self)
-  }, intervalConfiguration.tetraGatewayInterval)
+  updateTetraGateway(self)
 };
 
 let BackendViewModel = function () {
@@ -233,9 +258,7 @@ let BackendViewModel = function () {
   this.serverStateString = this.serverState.extend({serverState: true});
   this.latencyString = this.latency.extend({statisticNumberString: {warnThreshold: 100, errorThreshold: 300}});
 
-  setInterval(function () {
-    updateBackendStatistics(self)
-  }, intervalConfiguration.backendInterval)
+  updateBackendStatistics(self)
 };
 
 let DashboardViewModel = function () {
